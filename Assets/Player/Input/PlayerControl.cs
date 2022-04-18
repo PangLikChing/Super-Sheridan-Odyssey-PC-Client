@@ -62,6 +62,15 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuitMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""2132d043-a04e-491a-8886-8dddd3fe2558"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b5a4af5-ae98-4f4a-9b90-28079d055814"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""QuitMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -181,6 +201,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
         m_PlayerInput_Jump = m_PlayerInput.FindAction("Jump", throwIfNotFound: true);
         m_PlayerInput_Look = m_PlayerInput.FindAction("Look", throwIfNotFound: true);
         m_PlayerInput_Attack = m_PlayerInput.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerInput_QuitMenu = m_PlayerInput.FindAction("QuitMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -244,6 +265,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerInput_Jump;
     private readonly InputAction m_PlayerInput_Look;
     private readonly InputAction m_PlayerInput_Attack;
+    private readonly InputAction m_PlayerInput_QuitMenu;
     public struct PlayerInputActions
     {
         private @PlayerControl m_Wrapper;
@@ -252,6 +274,7 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerInput_Jump;
         public InputAction @Look => m_Wrapper.m_PlayerInput_Look;
         public InputAction @Attack => m_Wrapper.m_PlayerInput_Attack;
+        public InputAction @QuitMenu => m_Wrapper.m_PlayerInput_QuitMenu;
         public InputActionMap Get() { return m_Wrapper.m_PlayerInput; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -273,6 +296,9 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnAttack;
+                @QuitMenu.started -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnQuitMenu;
+                @QuitMenu.performed -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnQuitMenu;
+                @QuitMenu.canceled -= m_Wrapper.m_PlayerInputActionsCallbackInterface.OnQuitMenu;
             }
             m_Wrapper.m_PlayerInputActionsCallbackInterface = instance;
             if (instance != null)
@@ -289,6 +315,9 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @QuitMenu.started += instance.OnQuitMenu;
+                @QuitMenu.performed += instance.OnQuitMenu;
+                @QuitMenu.canceled += instance.OnQuitMenu;
             }
         }
     }
@@ -308,5 +337,6 @@ public partial class @PlayerControl : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnQuitMenu(InputAction.CallbackContext context);
     }
 }

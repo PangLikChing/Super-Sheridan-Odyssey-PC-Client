@@ -48,6 +48,7 @@ public class LevelManager : Singleton<LevelManager>
         {
             playerIndex = 1;
         }
+        
         localPlayerAvatar = PhotonNetwork.Instantiate(avatarPrefabs[playerIndex].name, instantiationPoint.position + Vector3.up * 0.05f, instantiationPoint.rotation);
         gameState = GameState.PreGame;
         //PlayerController.Instance.gameObject.SetActive(false);
@@ -158,6 +159,7 @@ public class LevelManager : Singleton<LevelManager>
     public void LeaveGame()
     {
         //PhotonNetwork.LeaveRoom();
+        PhotonNetwork.AutomaticallySyncScene = false;
         SceneManager.LoadScene(2);
     }
 }

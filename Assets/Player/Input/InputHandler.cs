@@ -30,6 +30,11 @@ public class InputHandler : MonoBehaviour
 		attack.Invoke();
 	}
 
+	public void OnQuitMenu(InputValue value)
+	{
+		UIManager.Instance.ShowQuitMenu();
+	}
+
 	private void OnEnable()
 	{
 		Cursor.lockState = CursorLockMode.Locked;	

@@ -67,6 +67,7 @@ public class PlayerController : Singleton<PlayerController>
         //camera configuration
         Transform cameraRoot = playerAvatar.transform.GetChild(0);
         stateCamera.m_Instructions[0].m_VirtualCamera = stateCamera.ChildCameras[LevelManager.Instance.playerIndex];
+        Debug.Log(LevelManager.Instance.playerIndex);
         stateCamera.LookAt = cameraRoot;
         stateCamera.ChildCameras[2].Follow = cameraRoot;
         stateCamera.ChildCameras[3].Follow = cameraRoot;

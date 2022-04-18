@@ -10,6 +10,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject heart1;
     public GameObject heart2;
     public GameObject heart3;
+    public GameObject quitMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,5 +49,17 @@ public class UIManager : Singleton<UIManager>
         {
             heart1.SetActive(false);
         }
+    }
+
+    public void ShowQuitMenu()
+    {
+        quitMenu.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void HideQuitMenu()
+    {
+        quitMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
