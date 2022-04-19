@@ -81,7 +81,7 @@ public class LevelManager : Singleton<LevelManager>
     private void PreGameUpdate()
     {
         GameObject[] playerAvatars = GameObject.FindGameObjectsWithTag("Player");
-        if (playerAvatars.Length != PhotonNetwork.PlayerList.Length)
+        if (playerAvatars.Length != PhotonNetwork.PlayerList.Length-1)
         { 
             return;
         }
