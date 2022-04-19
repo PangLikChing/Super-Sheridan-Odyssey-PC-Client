@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using Photon.Pun;
-using Photon.Realtime;
 using System;
 
 public class LevelManager : Singleton<LevelManager>
@@ -81,7 +78,7 @@ public class LevelManager : Singleton<LevelManager>
     private void PreGameUpdate()
     {
         GameObject[] playerAvatars = GameObject.FindGameObjectsWithTag("Player");
-        if (playerAvatars.Length != PhotonNetwork.PlayerList.Length-1)
+        if (playerAvatars.Length != PhotonNetwork.PlayerList.Length)
         { 
             return;
         }
@@ -154,12 +151,5 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
         return null;
-    }
-
-    public void LeaveGame()
-    {
-        //PhotonNetwork.LeaveRoom();
-        PhotonNetwork.AutomaticallySyncScene = false;
-        SceneManager.LoadScene(2);
     }
 }
