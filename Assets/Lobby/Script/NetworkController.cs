@@ -38,7 +38,7 @@ public class NetworkController : MonoBehaviourPunCallbacks
 
     public void Play()
     {
-        if (playerName != null)
+        if (!string.IsNullOrEmpty(playerName))
         {
             PhotonNetwork.NickName = playerName;
             PhotonNetwork.ConnectUsingSettings();

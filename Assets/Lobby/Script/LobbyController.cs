@@ -11,6 +11,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     private string createRoomName = null;
     private List<RoomItem> roomItemsList = new List<RoomItem>();
     private Hashtable roomCustomProperty = new Hashtable();
+    private int maxPCPlayer = 2;
     [HideInInspector]
     public float timeBetweenUpdates = 1.5f;
     public string selectRoomName = null;
@@ -20,11 +21,6 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     public GameObject roomNamePanel;
     public StatusMsg statusMsg;
-
-    private void Start()
-    {
-
-    }
 
     public void CreateRoom()
     {
@@ -39,9 +35,17 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     public void Create()
     {
-        Debug.Log(createRoomName);
-        if (createRoomName != null && createRoomName.Length > 0)
+        if (!string.IsNullOrEmpty(createRoomName))
         {
+            foreach (RoomItem item in roomItemsList)
+            {
+                if (createRoomName == item.roomName.text)
+                {
+                    statusMsg.SetStatusMsg("Duplicate room name detected");
+                    return;
+                }
+            }
+
             roomCustomProperty.Add("PC_Count", 1);
             roomCustomProperty.Add("Mobile_Count", 0);
             string[] customPropertyForlobby = { "PC_Count", "Mobile_Count" };
@@ -71,16 +75,21 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         roomNamePanel.SetActive(false);
         lobbyPanel.SetActive(false);
-        
+        foreach (RoomItem item in roomItemsList)
+        {
+            Destroy(item.gameObject);
+        }
+        roomItemsList.Clear();
         Debug.Log("Joined: " + PhotonNetwork.CurrentRoom.Name);
     }
 
     public void JoinRoom()
     {
-        if (selectRoomName != null && selectRoomName.Length > 0 )
+        if (!string.IsNullOrEmpty(selectRoomName) )
         {
             PhotonNetwork.JoinRoom(selectRoomName);
             selectRoomName = null;
+            
         }
         else
         {
@@ -100,28 +109,31 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     private void UpdateRoomList(List<RoomInfo> roomList)
     {
-        
-        foreach (RoomItem item in roomItemsList)
-        {
-            Destroy(item.gameObject);
-        }
-
-        roomItemsList.Clear();
-
         foreach (RoomInfo room in roomList)
         {
-            if (!room.RemovedFromList&&(int)room.CustomProperties["PC_Count"] < 2)
+            if (!room.RemovedFromList && (int)room.CustomProperties["PC_Count"] < maxPCPlayer)
             {
                 RoomItem newRoom = Instantiate(roomItemPrefab, contentObject);
                 newRoom.SetRoomName(room.Name);
                 roomItemsList.Add(newRoom);
+            }
+            else
+            {
+                int index = roomItemsList.FindIndex(x=>x.roomName.text == room.Name);
+                if (index != -1)
+                {
+                    Destroy(roomItemsList[index].gameObject);
+                    roomItemsList.RemoveAt(index);
+                }
             }
         }
     }
 
     public override void OnLeftRoom()
     {
+        roomCustomProperty.Clear();
         if(lobbyPanel!=null)
         lobbyPanel.SetActive(true);
     }
+
 }
