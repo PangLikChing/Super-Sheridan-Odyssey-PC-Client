@@ -11,6 +11,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     //private List<RoomItem> roomItemsList = new List<RoomItem>();
     public GameObject startButton;
     public GameObject readyButton;
+    public GameObject unReadyButton;
     public GameObject backToLobbyButton;
     public GameObject roomPanel;
     public PlayerItem playerItemPrefab;
@@ -19,6 +20,8 @@ public class RoomController : MonoBehaviourPunCallbacks
     private Room currentRoom;
     private List<PlayerItem> playerItemsList = new List<PlayerItem>();
     private Hashtable playerCustomProperty = new Hashtable();
+    //private Hashtable roomCustomProperty = null;
+
     public override void OnJoinedRoom()
     {
         roomPanel.SetActive(true);
@@ -29,6 +32,8 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             startButton.SetActive(true);
             playerCustomProperty.Add("player_status", 1);
+            //roomCustomProperty = new Hashtable();
+
             currentRoom.EmptyRoomTtl = 0;
         }
         else
@@ -56,6 +61,17 @@ public class RoomController : MonoBehaviourPunCallbacks
         playerCustomProperty["player_status"] = 1;
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperty);
         backToLobbyButton.GetComponent<Button>().interactable = false;
+        readyButton.SetActive(false);
+        unReadyButton.SetActive(true);
+    }
+
+    public void UnReady()
+    {
+        playerCustomProperty["player_status"] = 0;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperty);
+        backToLobbyButton.GetComponent<Button>().interactable = true;
+        unReadyButton.SetActive(false);
+        readyButton.SetActive(true);
     }
 
     public void BackToLobby()
@@ -71,6 +87,10 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             startButton.SetActive(true);
             readyButton.SetActive(false);
+            unReadyButton.SetActive(false);
+            playerCustomProperty["player_status"] = 1;
+            PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperty);
+            backToLobbyButton.GetComponent<Button>().interactable = true;
         }
         UpdatePlayerListing();
     }
