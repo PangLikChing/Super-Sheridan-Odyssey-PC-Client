@@ -20,8 +20,7 @@ public class RoomController : MonoBehaviourPunCallbacks
     private Room currentRoom;
     private List<PlayerItem> playerItemsList = new List<PlayerItem>();
     private Hashtable playerCustomProperty = new Hashtable();
-    //private Hashtable roomCustomProperty = null;
-
+    private Hashtable roomCustomProperty = null;
     public override void OnJoinedRoom()
     {
         roomPanel.SetActive(true);
@@ -32,15 +31,17 @@ public class RoomController : MonoBehaviourPunCallbacks
         {
             startButton.SetActive(true);
             playerCustomProperty.Add("player_status", 1);
-            //roomCustomProperty = new Hashtable();
 
-            currentRoom.EmptyRoomTtl = 0;
+            
+            PhotonNetwork.CurrentRoom.EmptyRoomTtl = 0;
         }
         else
         {
             readyButton.SetActive(true);
             playerCustomProperty.Add("player_status", 0);
+            
         }
+        roomCustomProperty = currentRoom.CustomProperties;
         playerCustomProperty.Add("player_type", "PC");
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperty);
     }
@@ -113,11 +114,23 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
         playerItemsList.Clear();
         int readyCounter = 1;
+        int pcCount = 0;
+        int mobileCount = 0;
         foreach (Player player in PhotonNetwork.PlayerList)
         {
             PlayerItem newPlayer = Instantiate(playerItemPrefab, playerListContent);
             newPlayer.SetPlayerName(player.NickName);
+
             newPlayer.SetPlayerType((string)player.CustomProperties["player_type"]);
+            if ((string)player.CustomProperties["player_type"] == "PC")
+            {
+                pcCount++;
+            }
+            else
+            {
+                mobileCount++;
+            }
+
             if (player.IsMasterClient)
             {
                 newPlayer.SetPlayerStatus("Host");
@@ -133,6 +146,7 @@ public class RoomController : MonoBehaviourPunCallbacks
             readyCounter *= (int)player.CustomProperties["player_status"];
             playerItemsList.Add(newPlayer);
         }
+
         roomReady = readyCounter;
         if (PhotonNetwork.IsMasterClient && roomReady == 0)
         {
@@ -141,6 +155,13 @@ public class RoomController : MonoBehaviourPunCallbacks
         else
         {
             startButton.GetComponent<Button>().interactable = true;
+        }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            roomCustomProperty["PC_Count"] = pcCount;
+            roomCustomProperty["Mobile_Count"] = mobileCount;
+            currentRoom.SetCustomProperties(roomCustomProperty);
         }
     }
 }

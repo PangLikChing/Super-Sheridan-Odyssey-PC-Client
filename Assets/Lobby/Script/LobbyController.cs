@@ -4,12 +4,13 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 using Photon.Realtime;
-
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class LobbyController : MonoBehaviourPunCallbacks
 {
     private float nextUpdateTime;
     private string createRoomName = null;
     private List<RoomItem> roomItemsList = new List<RoomItem>();
+    private Hashtable roomCustomProperty = new Hashtable();
     [HideInInspector]
     public float timeBetweenUpdates = 1.5f;
     public string selectRoomName = null;
@@ -41,7 +42,17 @@ public class LobbyController : MonoBehaviourPunCallbacks
         Debug.Log(createRoomName);
         if (createRoomName != null && createRoomName.Length > 0)
         {
-            RoomOptions options = new RoomOptions() { IsOpen = true, IsVisible = true, MaxPlayers = 3 };
+            roomCustomProperty.Add("PC_Count", 1);
+            roomCustomProperty.Add("Mobile_Count", 0);
+            string[] customPropertyForlobby = { "PC_Count", "Mobile_Count" };
+            RoomOptions options = new RoomOptions() { 
+                                                        IsOpen = true, 
+                                                        IsVisible = true, 
+                                                        MaxPlayers = 3, 
+                                                        EmptyRoomTtl = 0, 
+                                                        CustomRoomProperties = roomCustomProperty, 
+                                                        CustomRoomPropertiesForLobby = customPropertyForlobby 
+                                                    };
             PhotonNetwork.CreateRoom(createRoomName, options);
         }
         else
@@ -85,7 +96,6 @@ public class LobbyController : MonoBehaviourPunCallbacks
             UpdateRoomList(roomList);
             nextUpdateTime = Time.time + timeBetweenUpdates;
         }
-        
     }
 
     private void UpdateRoomList(List<RoomInfo> roomList)
@@ -95,11 +105,12 @@ public class LobbyController : MonoBehaviourPunCallbacks
         {
             Destroy(item.gameObject);
         }
+
         roomItemsList.Clear();
 
         foreach (RoomInfo room in roomList)
         {
-            if (!room.RemovedFromList)
+            if (!room.RemovedFromList&&(int)room.CustomProperties["PC_Count"] < 2)
             {
                 RoomItem newRoom = Instantiate(roomItemPrefab, contentObject);
                 newRoom.SetRoomName(room.Name);
