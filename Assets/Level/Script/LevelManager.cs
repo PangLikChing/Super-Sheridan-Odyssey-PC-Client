@@ -11,8 +11,8 @@ public class LevelManager : Singleton<LevelManager>
     public List<GameObject> avatarPrefabs = new List<GameObject>();
     public Transform instantiationPoint;
     public GameObject winTrigger;
-    
-    
+
+
 
     [HideInInspector]
     public UnityEvent Victory = new UnityEvent();
@@ -25,7 +25,7 @@ public class LevelManager : Singleton<LevelManager>
     private PlayerData[] playerData;
     private int currentPlayerCount;
     private GameObject localPlayerAvatar;
-    
+
     private enum GameState
     {
         PreGame,
@@ -36,16 +36,7 @@ public class LevelManager : Singleton<LevelManager>
     private GameState gameState;
     private void Awake()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            playerIndex = 0;
-
-        }
-        else
-        {
-            playerIndex = 1;
-        }
-        
+        playerIndex = PhotonNetwork.IsMasterClient ? 0 : 1;
         localPlayerAvatar = PhotonNetwork.Instantiate(avatarPrefabs[playerIndex].name, instantiationPoint.position + Vector3.up * 0.05f, instantiationPoint.rotation);
         gameState = GameState.PreGame;
         //PlayerController.Instance.gameObject.SetActive(false);
@@ -79,7 +70,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         GameObject[] playerAvatars = GameObject.FindGameObjectsWithTag("Player");
         if (playerAvatars.Length != PhotonNetwork.PlayerList.Length)
-        { 
+        {
             return;
         }
         else
@@ -88,7 +79,7 @@ public class LevelManager : Singleton<LevelManager>
             foreach (GameObject player in playerAvatars)
             {
                 int index = Array.IndexOf(playerAvatars, player);
-                playerData[index] = player.GetComponent<PlayerData>();  
+                playerData[index] = player.GetComponent<PlayerData>();
                 playerData[index].PlayerExhausted.AddListener(OnPlayerExhausted);
             }
             currentPlayerCount = playerAvatars.Length;

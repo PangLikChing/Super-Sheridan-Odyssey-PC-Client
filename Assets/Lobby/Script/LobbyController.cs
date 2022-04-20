@@ -99,15 +99,13 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
         foreach (RoomInfo room in roomList)
         {
-            RoomItem newRoom = Instantiate(roomItemPrefab, contentObject);
-            newRoom.SetRoomName(room.Name);
-            roomItemsList.Add(newRoom);
+            if (!room.RemovedFromList)
+            {
+                RoomItem newRoom = Instantiate(roomItemPrefab, contentObject);
+                newRoom.SetRoomName(room.Name);
+                roomItemsList.Add(newRoom);
+            }
         }
-    }
-
-    public void BackToLobby()
-    {
-        PhotonNetwork.LeaveRoom();
     }
 
     public override void OnLeftRoom()
