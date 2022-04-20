@@ -32,7 +32,7 @@ public class LevelManager : Singleton<LevelManager>
         InGame,
         PostGame
     }
-
+ 
     private GameState gameState;
     private void Awake()
     {

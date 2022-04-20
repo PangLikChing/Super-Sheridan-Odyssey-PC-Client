@@ -511,6 +511,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startButton: {fileID: 1592134982}
   readyButton: {fileID: 1730190561}
+  backToLobbyButton: {fileID: 1042512608}
+  roomPanel: {fileID: 567957504}
+  playerItemPrefab: {fileID: 8899818365700177212, guid: 009e241fd92c65340aa718b9267e7e3c, type: 3}
+  playerListContent: {fileID: 698588589}
 --- !u!1 &275505906
 GameObject:
   m_ObjectHideFlags: 0
@@ -4229,7 +4233,6 @@ MonoBehaviour:
   contentObject: {fileID: 498694679}
   roomItemPrefab: {fileID: 2930766750751390400, guid: 3b33a812e39cb814ba39d353b3b79e23, type: 3}
   lobbyPanel: {fileID: 1135103060}
-  roomPanel: {fileID: 567957504}
   roomNamePanel: {fileID: 644497855}
   statusMsg: {fileID: 112626169}
 --- !u!4 &1295322787
@@ -4521,7 +4524,7 @@ GameObject:
   - component: {fileID: 1592134985}
   - component: {fileID: 1592134984}
   m_Layer: 5
-  m_Name: Start Game
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4700,7 +4703,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Start Game
+  m_text: Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5268,7 +5271,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1730190564}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 271738837}
+        m_TargetAssemblyTypeName: RoomController, Assembly-CSharp
+        m_MethodName: Ready
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1730190564
 MonoBehaviour:
   m_ObjectHideFlags: 0

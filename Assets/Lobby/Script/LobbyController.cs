@@ -16,7 +16,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     public Transform contentObject;
     public RoomItem roomItemPrefab;
     public GameObject lobbyPanel;
-    public GameObject roomPanel;
+
     public GameObject roomNamePanel;
     public StatusMsg statusMsg;
 
@@ -41,7 +41,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
         Debug.Log(createRoomName);
         if (createRoomName != null && createRoomName.Length > 0)
         {
-            RoomOptions options = new RoomOptions() { IsOpen = true, IsVisible = true, MaxPlayers = 2 };
+            RoomOptions options = new RoomOptions() { IsOpen = true, IsVisible = true, MaxPlayers = 3 };
             PhotonNetwork.CreateRoom(createRoomName, options);
         }
         else
@@ -60,8 +60,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         roomNamePanel.SetActive(false);
         lobbyPanel.SetActive(false);
-        roomPanel.SetActive(true);
-        roomPanel.transform.GetChild(0).GetComponent<TMP_Text>().text = PhotonNetwork.CurrentRoom.Name;
+        
         Debug.Log("Joined: " + PhotonNetwork.CurrentRoom.Name);
     }
 
@@ -70,6 +69,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
         if (selectRoomName != null && selectRoomName.Length > 0 )
         {
             PhotonNetwork.JoinRoom(selectRoomName);
+            selectRoomName = null;
         }
         else
         {
@@ -110,7 +110,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        roomPanel.SetActive(false);
+        if(lobbyPanel!=null)
         lobbyPanel.SetActive(true);
     }
 }
