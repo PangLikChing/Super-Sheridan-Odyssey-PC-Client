@@ -49,14 +49,15 @@ public class LobbyController : MonoBehaviourPunCallbacks
             roomCustomProperty.Add("PC_Count", 1);
             roomCustomProperty.Add("Mobile_Count", 0);
             string[] customPropertyForlobby = { "PC_Count", "Mobile_Count" };
-            RoomOptions options = new RoomOptions() { 
-                                                        IsOpen = true, 
-                                                        IsVisible = true, 
-                                                        MaxPlayers = 3, 
-                                                        EmptyRoomTtl = 0, 
-                                                        CustomRoomProperties = roomCustomProperty, 
-                                                        CustomRoomPropertiesForLobby = customPropertyForlobby 
-                                                    };
+            RoomOptions options = new RoomOptions()
+            {
+                IsOpen = true,
+                IsVisible = true,
+                MaxPlayers = 3,
+                EmptyRoomTtl = 0,
+                CustomRoomProperties = roomCustomProperty,
+                CustomRoomPropertiesForLobby = customPropertyForlobby
+            };
             PhotonNetwork.CreateRoom(createRoomName, options);
         }
         else
@@ -85,17 +86,17 @@ public class LobbyController : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
-        if (!string.IsNullOrEmpty(selectRoomName) )
+        if (!string.IsNullOrEmpty(selectRoomName))
         {
             PhotonNetwork.JoinRoom(selectRoomName);
             selectRoomName = null;
-            
+
         }
         else
         {
             statusMsg.SetStatusMsg("You need to select a room first");
         }
-        
+
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -111,16 +112,19 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         foreach (RoomInfo room in roomList)
         {
-            if (!room.RemovedFromList && (int)room.CustomProperties["PC_Count"] < maxPCPlayer)
+            int index = roomItemsList.FindIndex(x => x.roomName.text == room.Name);
+            if (index == -1)
             {
-                RoomItem newRoom = Instantiate(roomItemPrefab, contentObject);
-                newRoom.SetRoomName(room.Name);
-                roomItemsList.Add(newRoom);
+                if (!room.RemovedFromList && (int)room.CustomProperties["PC_Count"] < maxPCPlayer)
+                {
+                    RoomItem newRoom = Instantiate(roomItemPrefab, contentObject);
+                    newRoom.SetRoomName(room.Name);
+                    roomItemsList.Add(newRoom);
+                }
             }
             else
             {
-                int index = roomItemsList.FindIndex(x=>x.roomName.text == room.Name);
-                if (index != -1)
+                if (room.RemovedFromList || (int)room.CustomProperties["PC_Count"] >= maxPCPlayer)
                 {
                     Destroy(roomItemsList[index].gameObject);
                     roomItemsList.RemoveAt(index);
@@ -132,8 +136,8 @@ public class LobbyController : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         roomCustomProperty.Clear();
-        if(lobbyPanel!=null)
-        lobbyPanel.SetActive(true);
+        if (lobbyPanel != null)
+            lobbyPanel.SetActive(true);
     }
 
 }

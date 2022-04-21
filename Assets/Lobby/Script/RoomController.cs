@@ -38,6 +38,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         else
         {
             readyButton.SetActive(true);
+            unReadyButton.SetActive(false);
             playerCustomProperty.Add("player_status", 0);
             
         }
@@ -77,12 +78,15 @@ public class RoomController : MonoBehaviourPunCallbacks
 
     public void BackToLobby()
     {
-        playerCustomProperty.Clear();
-        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperty);
         PhotonNetwork.LeaveRoom(true);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        UpdatePlayerListing();
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
     {
         if (PhotonNetwork.IsMasterClient)
         {
@@ -103,6 +107,8 @@ public class RoomController : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        playerCustomProperty.Clear();
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperty);
         roomPanel.SetActive(false);
     }
 
