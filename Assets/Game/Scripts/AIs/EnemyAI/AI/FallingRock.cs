@@ -9,6 +9,7 @@ public class FallingRock : MonoBehaviour
     [SerializeField] float originalHeight = 35f;
     [SerializeField] Transform fallingRocksPile;
     [SerializeField] float AreaOfEffectRadius = 5f;
+    [SerializeField] float damage = 1;
 
     void OnEnable()
     {
@@ -33,6 +34,13 @@ public class FallingRock : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // If the rock hits the player
+        if (other.GetComponent<PlayerData>() != null)
+        {
+            // Deals damage to the player
+            other.GetComponent<PlayerData>().TakeDamage(damage);
+        }
+
         // If the rock hits anything other than an enemy or a target detection area
         if (other.GetComponent<Enemy>() == null && other.GetComponent<TargetDetection>() == null)
         {

@@ -7,10 +7,11 @@ using UnityEngine.AI;
 public class Boss : MonoBehaviour
 {
     // Initialize
-    Enemy enemyStats;
     float bodyHitDamage = 1;
 
-    public Transform bossEnragePoint;
+    public Vector3 bossEnragePoint;
+
+    public float passiveRockTime = 2.0f, enrageRockTime = 1.0f;
 
     public float runAwayDistance = 7.5f;
 
@@ -24,7 +25,19 @@ public class Boss : MonoBehaviour
 
     void Start()
     {
+        // Initialize
         fallingRocks = FindObjectOfType<FallingRockPile>().transform;
-        bossEnragePoint = FindObjectOfType<BossEnragePoint>().transform;
+        bossEnragePoint = FindObjectOfType<BossEnragePoint>().transform.position;
+
+        bossEnragePoint = new Vector3(bossEnragePoint.x, transform.position.y, bossEnragePoint.z);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        // If the boss hits the player
+        if (other.GetComponent<PlayerData>() != null)
+        {
+            other.GetComponent<PlayerData>().TakeDamage(bodyHitDamage);
+        }
     }
 }

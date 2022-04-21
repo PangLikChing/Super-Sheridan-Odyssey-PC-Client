@@ -10,6 +10,7 @@ public class BossEnrageState : BossBaseState
     {
         // Initialize
         fallingRockCooldown = 0f;
+        boss.fallingRockTime = boss.enrageRockTime;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

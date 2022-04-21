@@ -13,6 +13,7 @@ public class BossPassiveState : BossBaseState
         // Initialize
         fallingRockCooldown = 0f;
         navMeshAgent = boss.GetComponent<NavMeshAgent>();
+        boss.fallingRockTime = boss.passiveRockTime;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -24,7 +25,7 @@ public class BossPassiveState : BossBaseState
             if (Vector3.Distance(boss.transform.position, boss.targetDetection.target.position) <= boss.runAwayDistance)
             {
                 // Tell the boss to run to the bossENragePoint
-                navMeshAgent.SetDestination(boss.bossEnragePoint.position);
+                navMeshAgent.SetDestination(boss.bossEnragePoint);
             }
             // Else
             else
@@ -63,7 +64,7 @@ public class BossPassiveState : BossBaseState
         }
 
         // If the boss reached the bossEnragePoint
-        if (boss.transform.position == boss.bossEnragePoint.position)
+        if (Vector3.Distance(boss.transform.position, boss.bossEnragePoint) <= 1.0f)
         {
             // Set trigger to transition to bossTransitionState
             animator.SetTrigger("Transition");
@@ -72,7 +73,10 @@ public class BossPassiveState : BossBaseState
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // Stop the movement
+        navMeshAgent.ResetPath();
 
+        boss.transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
     private void PickARandomRock()

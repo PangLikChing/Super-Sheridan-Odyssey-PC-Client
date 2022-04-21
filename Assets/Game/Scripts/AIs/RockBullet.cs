@@ -28,7 +28,7 @@ public class RockBullet : MonoBehaviour
         {
             Transform plant = transform.parent;
             // offset is the distance between the bullet and the plant should be
-            Vector3 offset = plant.forward + new Vector3(0, transform.parent.GetComponent<Plant>().targetDetection.target.GetComponent<CharacterController>().height * 0.5f, 0);
+            Vector3 offset = plant.forward + new Vector3(0, transform.parent.GetComponent<Plant>().targetDetection.target.GetComponent<CharacterController>().height, 0);
             // Set the position of the bullet
             transform.position = plant.position + offset;
             // Turn the bullet to plant's
