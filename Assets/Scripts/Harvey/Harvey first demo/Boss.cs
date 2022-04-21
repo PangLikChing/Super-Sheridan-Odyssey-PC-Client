@@ -10,16 +10,21 @@ public class Boss : MonoBehaviour
     Enemy enemyStats;
     float bodyHitDamage = 1;
 
+    public Transform bossEnragePoint;
+
+    public float runAwayDistance = 7.5f;
+
     public float transitionTime = 3f, fallingRockTime = 1.5f;
 
     public int regenHealth = 5;
 
-    public Transform fallingRocks;
+    [HideInInspector] public Transform fallingRocks;
 
     public TargetDetection targetDetection;
 
-    private void Update()
+    void Start()
     {
-        // Do something
+        fallingRocks = FindObjectOfType<FallingRockPile>().transform;
+        bossEnragePoint = FindObjectOfType<BossEnragePoint>().transform;
     }
 }

@@ -18,7 +18,7 @@ public class AISpawner : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             // Spawn in the AI gameObject
-            Instantiate(myAIPrefeb, transform.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(myAIPrefeb.name, transform.position, Quaternion.identity);
         }
     }
 }

@@ -25,28 +25,21 @@ public class BossEnrageState : BossBaseState
 
             // Set the falling rocks centre to the target
             boss.fallingRocks.position = new Vector3(targetPosition.x, 0, targetPosition.z);
-        }
-        // If the boss doesn't have a target
-        else
-        {
-            // Stop droping rocks by disabling the fallingRocksPile
-            boss.fallingRocks.gameObject.SetActive(false);
-        }
 
+            // If the fallingRockCooldown is up
+            if (fallingRockCooldown >= boss.fallingRockTime)
+            {
+                // Enable a random falling rock
+                PickARandomRock();
 
-        // If the fallingRockCooldown is up
-        if (fallingRockCooldown >= boss.fallingRockTime)
-        {
-            // Enable a random falling rock
-            PickARandomRock();
-
-            // Reset fallingRockCooldown
-            fallingRockCooldown = 0f;
-        }
-        else
-        {
-            // Increment fallingRockCooldown by deltaTime passed
-            fallingRockCooldown += Time.deltaTime;
+                // Reset fallingRockCooldown
+                fallingRockCooldown = 0f;
+            }
+            else
+            {
+                // Increment fallingRockCooldown by deltaTime passed
+                fallingRockCooldown += Time.deltaTime;
+            }
         }
     }
 

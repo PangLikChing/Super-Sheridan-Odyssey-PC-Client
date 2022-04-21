@@ -8,7 +8,6 @@ public class FallingRock : MonoBehaviour
     [SerializeField] float fallingSpeed = 10f;
     [SerializeField] float originalHeight = 35f;
     [SerializeField] Transform fallingRocksPile;
-    [SerializeField] GameObject targetDetectionGameObject;
     [SerializeField] float AreaOfEffectRadius = 5f;
 
     void OnEnable()
@@ -34,8 +33,8 @@ public class FallingRock : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // If the rock hit the floor
-        if (other.GetComponent<Floor>() != null)
+        // If the rock hits anything other than an enemy or a target detection area
+        if (other.GetComponent<Enemy>() == null && other.GetComponent<TargetDetection>() == null)
         {
             // Disable Collider
             GetComponent<SphereCollider>().enabled = false;
