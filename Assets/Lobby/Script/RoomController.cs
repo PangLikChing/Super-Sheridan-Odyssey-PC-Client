@@ -30,6 +30,8 @@ public class RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             startButton.SetActive(true);
+            readyButton.SetActive(false);
+            unReadyButton.SetActive(false);
             playerCustomProperty.Add("player_status", 1);
 
             
@@ -37,6 +39,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         }
         else
         {
+            startButton.SetActive(false);
             readyButton.SetActive(true);
             unReadyButton.SetActive(false);
             playerCustomProperty.Add("player_status", 0);

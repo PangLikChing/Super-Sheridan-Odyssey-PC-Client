@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 
 public class LevelManager : Singleton<LevelManager>
@@ -47,6 +48,13 @@ public class LevelManager : Singleton<LevelManager>
     void Start()
     {
         winTrigger.GetComponent<Win>().WinTrigger.AddListener(OnVictory);
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            if ((string)p.CustomProperties["player_type"] == "PC")
+            {
+                currentPlayerCount++;
+            }
+        }
     }
 
     private void Update()
@@ -69,7 +77,7 @@ public class LevelManager : Singleton<LevelManager>
     private void PreGameUpdate()
     {
         GameObject[] playerAvatars = GameObject.FindGameObjectsWithTag("Player");
-        if (playerAvatars.Length != PhotonNetwork.PlayerList.Length)
+        if (playerAvatars.Length != currentPlayerCount)
         {
             return;
         }
@@ -82,7 +90,6 @@ public class LevelManager : Singleton<LevelManager>
                 playerData[index] = player.GetComponent<PlayerData>();
                 playerData[index].PlayerExhausted.AddListener(OnPlayerExhausted);
             }
-            currentPlayerCount = playerAvatars.Length;
             PlayerController.Instance.localSpawnPoint = spawnPoints[playerIndex].transform;
             PlayerController.Instance.playerAvatar = localPlayerAvatar;
             PlayerController.Instance.enabled = true;
