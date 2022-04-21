@@ -8,6 +8,7 @@ public class Boss : MonoBehaviour
 {
     // Initialize
     float bodyHitDamage = 1;
+    Enemy enemyStats;
 
     public Vector3 bossEnragePoint;
 
@@ -26,18 +27,23 @@ public class Boss : MonoBehaviour
     void Start()
     {
         // Initialize
+        enemyStats = GetComponent<Enemy>();
         fallingRocks = FindObjectOfType<FallingRockPile>().transform;
         bossEnragePoint = FindObjectOfType<BossEnragePoint>().transform.position;
 
         bossEnragePoint = new Vector3(bossEnragePoint.x, transform.position.y, bossEnragePoint.z);
     }
 
-    void OnTriggerEnter(Collider other)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // If the boss hits the player
-        if (other.GetComponent<PlayerData>() != null)
+        // If the enemy hits the player
+        if (hit.gameObject.GetComponent<PlayerData>() != null)
         {
-            other.GetComponent<PlayerData>().TakeDamage(bodyHitDamage);
+            // Player takes bobyHitDamage amount of damage
+            hit.gameObject.GetComponent<PlayerData>().TakeDamage(bodyHitDamage);
+
+            // The boss takes 1 damage (damage should be determined by the player honestly. But we have to come up with a game design first)
+            enemyStats.health -= 1;
         }
     }
 }

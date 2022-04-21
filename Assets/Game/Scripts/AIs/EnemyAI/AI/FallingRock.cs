@@ -1,8 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody), typeof(SphereCollider), typeof(PhotonView))]
 public class FallingRock : MonoBehaviour
 {
     [SerializeField] float fallingSpeed = 10f;
@@ -11,8 +12,12 @@ public class FallingRock : MonoBehaviour
     [SerializeField] float AreaOfEffectRadius = 5f;
     [SerializeField] float damage = 1;
 
+    PhotonView photonView;
+
     void OnEnable()
     {
+        photonView = GetComponent<PhotonView>();
+
         // Pop it out of the parent to fix the position
         transform.parent.parent = null;
 
@@ -52,6 +57,14 @@ public class FallingRock : MonoBehaviour
 
             // Disable the whole Rock
             transform.parent.gameObject.SetActive(false);
+            photonView.RPC("DisableRock", RpcTarget.All);
         }
+    }
+
+    [PunRPC]
+    void DisableRock()
+    {
+        // Disable the whole Rock
+        transform.parent.gameObject.SetActive(false);
     }
 }
