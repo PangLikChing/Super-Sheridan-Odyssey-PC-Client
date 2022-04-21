@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
+using Photon.Pun;
 public class BreakOff : MonoBehaviour
 {
     public float breakOffDelay = 2;
     private float breakOffCountDown;
-    private Rigidbody rb;
     private bool isBreakingOff;
+    private PhotonView PV;
 
     public AudioClip woodCreekClip;
     private AudioSource woodCreekSource;
@@ -18,8 +18,8 @@ public class BreakOff : MonoBehaviour
     {
         isBreakingOff = false;
         breakOffCountDown = breakOffDelay;
-        rb = GetComponent<Rigidbody>();
         woodCreekSource = GetComponent<AudioSource>();
+        PV = GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -30,10 +30,14 @@ public class BreakOff : MonoBehaviour
         }
         if (breakOffCountDown <= 0)
         {
-            rb.useGravity = true;
-            Destroy(gameObject,5);
+            if (!PV.IsMine)
+            {
+                PV.TransferOwnership(PhotonNetwork.LocalPlayer);
+            }
+            PhotonNetwork.Destroy(gameObject);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
