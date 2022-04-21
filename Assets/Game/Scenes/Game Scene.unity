@@ -2418,7 +2418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772f9a36a5579424592826b463b274a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myAIPrefeb: {fileID: 302379983058653515, guid: c6a711497a9f6574a885e1e4ed998ff0, type: 3}
+  myAIPrefeb: {fileID: 302379983058653515, guid: 8573ce36001347e44a51437d23c72c77, type: 3}
 --- !u!95 &1266231470 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 7095143604983849626, guid: 14a2ba93d4acef646973e32063d6e7d3, type: 3}
@@ -4481,7 +4481,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.2161863, y: 1}
+    m_SensorSize: {x: 2.2460136, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
