@@ -4,9 +4,10 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Heart : MonoBehaviourPunCallbacks, IOnPhotonViewOwnerChange
+public class Heart : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
+    private bool destory;
 
     private void Start()
     {
@@ -19,17 +20,19 @@ public class Heart : MonoBehaviourPunCallbacks, IOnPhotonViewOwnerChange
         if (data != null)
         {
             data.RefillHealth();
-            Debug.Log(PV.IsMine);
             if (!PV.IsMine)
             {
                 PV.TransferOwnership(PhotonNetwork.LocalPlayer);
             }
-            
+            destory = true;
         }
     }
 
-    public void OnOwnerChange(Player newOwner, Player previousOwner)
+    private void Update()
     {
-        PhotonNetwork.Destroy(gameObject);
+        if (destory && PV.IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 }
