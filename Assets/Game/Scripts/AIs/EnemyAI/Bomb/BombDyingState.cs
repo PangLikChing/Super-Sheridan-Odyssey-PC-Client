@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class BombDyingState : BombBaseState
         // The animation should be a one time animation
 
         // Disable the gameObject
-        bomb.gameObject.SetActive(false);
+        PhotonNetwork.Destroy(bomb.gameObject);
         //Debug.Log("Ahh the plant is dead");
     }
 

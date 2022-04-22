@@ -19,13 +19,11 @@ public class RPCManager : MonoBehaviour
 
     public void GameWon()
     {
-        //photonView.RPC("OnVictory", RpcTarget.Others);
         PhotonNetwork.RaiseEvent(EventCode, 0, null, SendOptions.SendReliable);
     }
 
     public void GameLost()
     {
-        //photonView.RPC("OnLose", RpcTarget.Others);
         PhotonNetwork.RaiseEvent(EventCode, 1, null, SendOptions.SendReliable);
     }
 }
