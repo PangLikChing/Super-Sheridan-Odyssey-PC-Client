@@ -14,7 +14,6 @@ public class LevelManager : Singleton<LevelManager>
     public GameObject winTrigger;
 
 
-
     [HideInInspector]
     public UnityEvent Victory = new UnityEvent();
     [HideInInspector]
