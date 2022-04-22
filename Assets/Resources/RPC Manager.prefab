@@ -45,6 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710df815fd51c5c4b83da207c0006a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameWon:
+    m_PersistentCalls:
+      m_Calls: []
+  gameLost:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7113148936935800645
 MonoBehaviour:
   m_ObjectHideFlags: 0
