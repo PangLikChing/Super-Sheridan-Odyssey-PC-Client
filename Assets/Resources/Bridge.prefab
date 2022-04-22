@@ -12,12 +12,9 @@ GameObject:
   - component: {fileID: 33392842353573922}
   - component: {fileID: 23758132917705532}
   - component: {fileID: -894256894442192135}
-  - component: {fileID: 4231994870804940652}
   - component: {fileID: 4208113945527348506}
   - component: {fileID: 5980240957729507381}
   - component: {fileID: 2623910284687143542}
-  - component: {fileID: 2604136776389963189}
-  - component: {fileID: 1342378095794056541}
   m_Layer: 3
   m_Name: Bridge
   m_TagString: Untagged
@@ -106,20 +103,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4231994870804940652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1487688346712832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9112b10b47a7d04a9f6baf1f4450c32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakOffDelay: 0.5
-  woodCreekClip: {fileID: 8300000, guid: 69a8daee525c63348b40f407d9ac72dd, type: 3}
 --- !u!82 &4208113945527348506
 AudioSource:
   m_ObjectHideFlags: 0
@@ -242,42 +225,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 0.8000008, z: 4}
   m_Center: {x: 0, y: -0.4000001, z: 0}
---- !u!114 &2604136776389963189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1487688346712832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1342378095794056541}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &1342378095794056541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1487688346712832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1

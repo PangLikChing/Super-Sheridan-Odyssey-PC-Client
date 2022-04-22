@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class Heart : MonoBehaviour
+using Photon.Realtime;
+
+public class Heart : MonoBehaviourPunCallbacks, IOnPhotonViewOwnerChange
 {
     private PhotonView PV;
 
@@ -17,11 +19,17 @@ public class Heart : MonoBehaviour
         if (data != null)
         {
             data.RefillHealth();
+            Debug.Log(PV.IsMine);
             if (!PV.IsMine)
             {
                 PV.TransferOwnership(PhotonNetwork.LocalPlayer);
             }
-            PhotonNetwork.Destroy(gameObject);
+            
         }
+    }
+
+    public void OnOwnerChange(Player newOwner, Player previousOwner)
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }

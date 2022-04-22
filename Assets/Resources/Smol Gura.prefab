@@ -345,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6.5
   speedChangeRate: 10
-  initialFacing: -90
+  initialFacing: 0
   jumpHeight: 4
   gravityModifier: 2
   groundCheckerRadius: 0.8
