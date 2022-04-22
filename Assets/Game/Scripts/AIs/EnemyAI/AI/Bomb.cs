@@ -25,6 +25,7 @@ public class Bomb : MonoBehaviour
         bodyHitDamage = enemyStats.bobyHitDamage;
         shouldHangOut = false;
         startedHangOut = false;
+        wanderingPoints = GameObject.Find("Wandering Points").transform;
     }
 
     void FixedUpdate()
