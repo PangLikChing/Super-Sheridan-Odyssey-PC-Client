@@ -10,9 +10,8 @@ public class BombDyingState : BombBaseState
         // Play the dying animation
         // The animation should be a one time animation
 
-        // Disable the gameObject
+        // Destroy the gameObject
         PhotonNetwork.Destroy(bomb.gameObject);
-        //Debug.Log("Ahh the plant is dead");
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

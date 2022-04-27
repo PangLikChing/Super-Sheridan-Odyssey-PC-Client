@@ -64,6 +64,10 @@ public class BombIdleState : BombBaseState
                 // Ask the bomb to hang out
                 bomb.shouldHangOut = true;
             }
+            else
+            {
+                navMeshAgent.SetDestination(bomb.idleDestination.position);
+            }
         }
     }
 

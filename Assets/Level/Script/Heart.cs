@@ -7,7 +7,7 @@ using Photon.Realtime;
 public class Heart : MonoBehaviourPunCallbacks
 {
     private PhotonView PV;
-    private bool destory;
+    private bool destroy = false;
 
     private void Start()
     {
@@ -24,13 +24,13 @@ public class Heart : MonoBehaviourPunCallbacks
             {
                 PV.TransferOwnership(PhotonNetwork.LocalPlayer);
             }
-            destory = true;
+            destroy = true;
         }
     }
 
     private void Update()
     {
-        if (destory && PV.IsMine)
+        if (destroy && PV.IsMine)
         {
             PhotonNetwork.Destroy(gameObject);
         }

@@ -369,7 +369,7 @@ MonoBehaviour:
   grabRange: 10
   grabRadius: 5
   grabSpeed: 50
-  throwForce: 50
+  throwForce: 100
   throwableLayer:
     serializedVersion: 2
     m_Bits: 64

@@ -72,14 +72,13 @@ GameObject:
   - component: {fileID: 8958068024763217211}
   - component: {fileID: 8958068024763217204}
   - component: {fileID: 8958068024763217205}
-  - component: {fileID: 8958068024763217206}
+  - component: {fileID: 5119820205627545589}
   - component: {fileID: 8958068024763217209}
   - component: {fileID: 1790054132}
   - component: {fileID: 1790054134}
   - component: {fileID: 1790054133}
   - component: {fileID: 1351532537768895596}
   - component: {fileID: 170334507436672538}
-  - component: {fileID: 3986133837286460212}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Untagged
@@ -166,22 +165,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &8958068024763217206
-Rigidbody:
+--- !u!65 &5119820205627545589
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8958068024763217207}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 94
-  m_CollisionDetection: 0
+  m_Size: {x: 1.25, y: 1.25, z: 1.25}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8958068024763217209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +263,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 170334507436672538}
-  - {fileID: 3986133837286460212}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -287,19 +282,3 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &3986133837286460212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8958068024763217207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3

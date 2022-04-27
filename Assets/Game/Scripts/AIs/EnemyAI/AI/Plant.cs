@@ -28,16 +28,21 @@ public class Plant : MonoBehaviour
         bulletPile = FindObjectOfType<BulletPile>().transform;
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnTriggerEnter(Collider other)
     {
         // If the enemy hits the player
-        if (hit.gameObject.GetComponent<PlayerData>() != null)
+        if (other.gameObject.GetComponent<PlayerData>() != null)
         {
-            // Player takes bobyHitDamage amount of damage
-            hit.gameObject.GetComponent<PlayerData>().TakeDamage(bodyHitDamage);
+            Debug.Log("yo");
 
-            // The plant takes 1 damage (damage should be determined by the player honestly. But we have to come up with a game design first)
-            enemyStats.health -= 1;
+            // Player takes bobyHitDamage amount of damage
+            other.gameObject.GetComponent<PlayerData>().TakeDamage(bodyHitDamage);
+
+            // The plant takes max health amount of damage (damage should be determined by the player honestly. But we have to come up with a game design first)
+            enemyStats.TakeDamage(enemyStats.health);
+
+            // To dead state
+            GetComponent<Animator>().SetTrigger("isDead");
         }
     }
 

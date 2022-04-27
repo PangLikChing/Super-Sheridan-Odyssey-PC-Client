@@ -16,7 +16,6 @@ public class PlayerData : MonoBehaviour
     public bool isExhausted = false;
     public bool isWinTriggerer = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;

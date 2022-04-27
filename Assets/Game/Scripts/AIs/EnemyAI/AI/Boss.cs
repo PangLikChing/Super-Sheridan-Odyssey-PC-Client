@@ -43,7 +43,7 @@ public class Boss : MonoBehaviour
             hit.gameObject.GetComponent<PlayerData>().TakeDamage(bodyHitDamage);
 
             // The boss takes 1 damage (damage should be determined by the player honestly. But we have to come up with a game design first)
-            enemyStats.health -= 1;
+            enemyStats.TakeDamage(1);
         }
     }
 }

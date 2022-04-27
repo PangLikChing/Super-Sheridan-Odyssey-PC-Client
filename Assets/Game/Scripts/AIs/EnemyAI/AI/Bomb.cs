@@ -15,7 +15,7 @@ public class Bomb : MonoBehaviour
     public float maxChaseDistance = 10;
 
     [HideInInspector] public bool shouldHangOut = false, startedHangOut = false;
-    [HideInInspector] public Transform idleDestination;
+    public Transform idleDestination;
     [HideInInspector] public Vector3 originalPosition;
 
     void Start()
@@ -53,8 +53,11 @@ public class Bomb : MonoBehaviour
             // Player takes bobyHitDamage amount of damage
             other.gameObject.GetComponent<PlayerData>().TakeDamage(bodyHitDamage);
 
-            // The plant takes 1 damage (damage should be determined by the player honestly. But we have to come up with a game design first)
-            enemyStats.health -= 1;
+            // The plant takes max health amount of damage (damage should be determined by the player honestly. But we have to come up with a game design first)
+            enemyStats.TakeDamage(enemyStats.health);
+
+            // To dead state
+            GetComponent<Animator>().SetTrigger("isDead");
         }
     }
 

@@ -6,9 +6,12 @@ using Photon.Pun;
 public class Rock : MonoBehaviour
 {
     private PhotonView PV;
+    public int damage = 1;
+    public bool destroy = false;
 
     private void Start()
     {
+        destroy = false;
         PV = GetComponent<PhotonView>();
     }
 
@@ -17,11 +20,23 @@ public class Rock : MonoBehaviour
         Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (enemy != null)
         {
-            //enemy.TakeDamage(1);
+            // Enemy takes damage
+            enemy.TakeDamage(damage);
+
             if (!PV.IsMine)
             {
                 PV.TransferOwnership(PhotonNetwork.LocalPlayer);
             }
+
+            // Destroy the gameObject across the network
+            destroy = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (destroy && PV.IsMine)
+        {
             PhotonNetwork.Destroy(gameObject);
         }
     }

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,10 @@ public class PlantDyingState : PlantBaseState
         // Play the dying animation
         // The animation should be a one time animation
 
-        // Disable the gameObject
-        plant.gameObject.SetActive(false);
-        //Debug.Log("Ahh the plant is dead");
+        Debug.Log("Ahh the plant is dead");
+
+        // Destroy the gameObject
+        PhotonNetwork.Destroy(plant.gameObject);
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

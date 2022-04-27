@@ -5,19 +5,32 @@ using UnityEngine.AI;
 
 public class BossPassiveState : BossBaseState
 {
+    float health = 0;
     NavMeshAgent navMeshAgent;
     float fallingRockCooldown = 0f;
+    Enemy enemyStats;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         // Initialize
         fallingRockCooldown = 0f;
+        enemyStats = boss.GetComponent<Enemy>();
         navMeshAgent = boss.GetComponent<NavMeshAgent>();
         boss.fallingRockTime = boss.passiveRockTime;
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        // Get the current health
+        health = enemyStats.health;
+
+        // If plant's health is less than or equal to 0
+        if (health <= 0)
+        {
+            // To dead state
+            animator.SetTrigger("isDead");
+        }
+
         // If the boss has a target
         if (boss.targetDetection.target != null)
         {
