@@ -84,6 +84,9 @@ MonoBehaviour:
   jump:
     m_PersistentCalls:
       m_Calls: []
+  attack:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &7095143604983849626
 Animator:
   serializedVersion: 4
@@ -118,12 +121,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 7095143604983849621}
   playableDirector: {fileID: 7095143604983849616}
-  playerAvatarPrefab: {fileID: 1325706452990556452, guid: 4ab55479747ccc84f8959d3eb4799961, type: 3}
+  numOfCoinsHeld: 0
+  livesNum: 0
   playerAvatar: {fileID: 0}
   characterLocomotion: {fileID: 0}
+  characterAttack: {fileID: 0}
   characterAnimation: {fileID: 0}
   playerData: {fileID: 0}
   cameraControl: {fileID: 0}
+  Spawn:
+    m_PersistentCalls:
+      m_Calls: []
+  UpdateScore:
+    m_PersistentCalls:
+      m_Calls: []
+  UpdateLives:
+    m_PersistentCalls:
+      m_Calls: []
+  respawnDelay: 5
+  respawnTimer: 0
+  localSpawnPoint: {fileID: 0}
+  stateCamera: {fileID: 0}
 --- !u!114 &7095143604983849622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +170,8 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: 4907232898111167565, guid: c8b59078fae73a943b9157315f855cdd, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -1298528031919535602, guid: c8b59078fae73a943b9157315f855cdd, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
