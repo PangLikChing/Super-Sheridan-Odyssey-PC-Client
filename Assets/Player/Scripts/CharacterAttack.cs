@@ -64,9 +64,12 @@ public class CharacterAttack : MonoBehaviour
 
     public void DetachObject()
     {
-        objectRb.isKinematic = false;
-        grabbedObject.transform.SetParent(null);
-        grabbedObject = null;
+        if (grabbedObject != null && objectRb != null)
+        {
+            objectRb.isKinematic = false;
+            grabbedObject.transform.SetParent(null);
+            grabbedObject = null;
+        }
     }
 
     private void OnObjectGrabbed()
