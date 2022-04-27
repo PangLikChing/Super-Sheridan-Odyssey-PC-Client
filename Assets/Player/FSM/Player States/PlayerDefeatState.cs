@@ -10,6 +10,7 @@ public class PlayerDefeatState : PlayerBaseState
         PlayerController.Instance.Spawn.AddListener(OnDeathSceneEnd);
         characterAnimator.SetTrigger("Killed");
         LevelManager.Instance.Victory.AddListener(OnPlayerVictory);
+        playerAttack.DetachObject();
     }
 
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

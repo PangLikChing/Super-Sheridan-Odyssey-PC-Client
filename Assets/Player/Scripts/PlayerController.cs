@@ -25,6 +25,8 @@ public class PlayerController : Singleton<PlayerController>
     [HideInInspector]
     public PlayerData playerData;
     [HideInInspector]
+    public CharacterAttack playerAttack;
+    [HideInInspector]
     public PlayerCameraControl cameraControl;
 
 
@@ -59,6 +61,7 @@ public class PlayerController : Singleton<PlayerController>
         characterAttack = playerAvatar.GetComponent<CharacterAttack>();
         characterAnimation = playerAvatar.GetComponent<Animator>();
         playerData = playerAvatar.GetComponent<PlayerData>();
+        playerAttack = playerAvatar.GetComponent<CharacterAttack>();
         cameraControl = playerAvatar.transform.GetChild(0).GetComponent<PlayerCameraControl>();
         stateCamera = GetComponent<CinemachineStateDrivenCamera>();
         GetComponent<Animator>().enabled = true;
