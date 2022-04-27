@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,7 +70,8 @@ public class CharacterAttack : MonoBehaviour
     }
 
     private void OnObjectGrabbed()
-    { 
+    {
+        grabbingObject.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.LocalPlayer);
         grabbingObject.transform.SetParent(objectAnchor.transform);
         objectRb.isKinematic = true;
         grabbedObject = grabbingObject;
